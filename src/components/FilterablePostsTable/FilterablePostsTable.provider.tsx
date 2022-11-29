@@ -1,5 +1,6 @@
 import React, {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -28,31 +29,31 @@ const FilterablePostsTableProvider: React.ForwardRefRenderFunction<
 
   const [comments, setComments] = useState<Comment[]>([]);
 
-  const getPosts = () => {
+  const getPosts = useCallback(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((posts) => setPosts(posts));
-  };
+  }, []);
 
-  const getUsers = () => {
+  const getUsers = useCallback(() => {
     fetch(`https://jsonplaceholder.typicode.com/users`)
       .then((response) => response.json())
       .then((users) => {
         setUsers(users);
       });
-  };
+  }, []);
 
-  const getComments = () => {
+  const getComments = useCallback(() => {
     fetch(`https://jsonplaceholder.typicode.com/comments`)
       .then((response) => response.json())
       .then((comments) => setComments(comments));
-  };
+  }, []);
 
   useEffect(() => {
     getPosts();
     getUsers();
     getComments();
-  }, []);
+  }, [getPosts, getComments, getUsers]);
 
   const associatedPosts = useMemo<Post[]>(() => {
     let newPosts: Post[] = [];

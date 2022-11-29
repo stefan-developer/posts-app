@@ -47,10 +47,10 @@ const SinglePost: React.FC<SinglePostProps> = (props: SinglePostProps) => {
   return renderPost ? (
     <div className="single-post" onClick={onSelect && onSelect}>
       <li>
-        <h5>Username: {renderPost?.userName}</h5>
-        <p className="single-post-title">Post: {renderPost?.id}</p>
+        <h5>Username: {renderPost.userName}</h5>
+        <p className="single-post-title">Post: {renderPost.id}</p>
       </li>
-      {renderPost?.comments && (
+      {renderPost.comments && (
         <CommentsList
           comments={renderPost.comments}
           message={message || "Hello from"}
